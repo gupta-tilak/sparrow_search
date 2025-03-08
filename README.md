@@ -1,42 +1,64 @@
-Vanilla LSTM Metrics:
-2025-03-02 19:08:47,337 - INFO - Plot saved: ./results/plots/20250302_184828_predictions_vs_actuals_vanilla_lstm.png
-mse: 4.0005
-mae: 1.8857
-rmse: 2.0001
-r2: -0.0001
+## Model Performance Metrics
 
-Optimized LSTM Metrics:
-2025-03-02 19:08:51,548 - INFO - Plot saved: ./results/plots/20250302_184828_predictions_vs_actuals_optimized_lstm.png
-mse: 0.0102
-mae: 0.0939
-rmse: 0.1011
-r2: 0.9974
+### 📌 Vanilla LSTM Metrics:
+| Metric | Value |
+|--------|-------|
+| **MSE**  | 4.0005 |
+| **MAE**  | 1.8857 |
+| **RMSE** | 2.0001 |
+| **R²**   | -0.0001 |
+
+---
+
+### 🚀 Optimized LSTM Metrics:
+| Metric | Value |
+|--------|-------|
+| **MSE**  | 0.0102 |
+| **MAE**  | 0.0939 |
+| **RMSE** | 0.1011 |
+| **R²**   | 0.9974 |
+
+🔹 *Lower MSE, MAE, and RMSE indicate better performance, while an R² closer to 1 suggests a stronger fit.*
 
 
-Configs Used:
+## Configuration Parameters
+
+```python
 CONFIG = {
-    'input_size': 16,
-    'sequence_length': 10,
-    'batch_size': 32,
-    'learning_rate': 0.001,
-    'epochs': 100,
-    'num_workers': 4,  # For DataLoader
-    'pin_memory': True,  # Faster data transfer to GPU
-    'train_size': 0.7,
-    'val_size': 0.15,
-    'test_size': 0.15,
+    # Model & Training Parameters
+    'input_size': 16,                 # Size of input features
+    'sequence_length': 10,             # Length of input sequence
+    'batch_size': 32,                  # Batch size for training
+    'learning_rate': 0.001,            # Initial learning rate
+    'epochs': 100,                     # Number of training epochs
+    'gradient_accumulation_steps': 1,  # Steps for gradient accumulation
+    'amp_enabled': True,               # Enable Automatic Mixed Precision (AMP)
+
+    # Data Loading & Processing
+    'num_workers': 4,                  # Number of worker threads for DataLoader
+    'pin_memory': True,                 # Enable pinned memory for faster GPU transfer
+    'train_size': 0.7,                  # Training dataset proportion
+    'val_size': 0.15,                   # Validation dataset proportion
+    'test_size': 0.15,                  # Test dataset proportion
+
+    # Hardware Configuration
     'world_size': torch.cuda.device_count(),  # Number of available GPUs
-    'device': 'cuda' if torch.cuda.is_available() else 'cpu',
-    'log_dir': os.environ.get('LOG_DIR', './logs'),
-    'data_dir': os.environ.get('DATA_DIR', './data'),
-    'model_dir': os.environ.get('MODEL_DIR', './models'),
-    'cuda_empty_cache': True,
-    'gradient_accumulation_steps': 1,
-    'amp_enabled': True,  # Automatic Mixed Precision
-    'save_dir': os.environ.get('SAVE_DIR', './results'),
-    'plot_dir': os.environ.get('PLOT_DIR', './results/plots'),
-    'timestamp': datetime.datetime.now().strftime('%Y%m%d_%H%M%S'),
-    'checkpoint_dir': os.environ.get('CHECKPOINT_DIR', './checkpoints'),
-    'checkpoint_frequency': 5,  # Save every 5 epochs
-    'resume_from_checkpoint': True
+    'device': 'cuda' if torch.cuda.is_available() else 'cpu',  # Select device
+    'cuda_empty_cache': True,            # Clear CUDA cache after each iteration
+
+    # Logging & Directories
+    'log_dir': os.environ.get('LOG_DIR', './logs'),               # Log directory
+    'data_dir': os.environ.get('DATA_DIR', './data'),             # Data directory
+    'model_dir': os.environ.get('MODEL_DIR', './models'),         # Model directory
+    'save_dir': os.environ.get('SAVE_DIR', './results'),          # Save directory
+    'plot_dir': os.environ.get('PLOT_DIR', './results/plots'),    # Directory for plots
+    'checkpoint_dir': os.environ.get('CHECKPOINT_DIR', './checkpoints'),  # Checkpoints directory
+
+    # Checkpointing & Resumption
+    'checkpoint_frequency': 5,          # Save a checkpoint every 5 epochs
+    'resume_from_checkpoint': True,      # Resume training from the latest checkpoint
+
+    # Timestamp
+    'timestamp': datetime.datetime.now().strftime('%Y%m%d_%H%M%S')  # Timestamp for runs
 }
+
