@@ -1,0 +1,47 @@
+{
+    "vanilla_metrics": {
+        "mse": 4.000503664283801,
+        "mae": 1.88573125495506,
+        "rmse": 2.0001259121074857,
+        "r2": -6.73366464800651e-05
+    },
+    "optimized_metrics": {
+        "mse": 0.010215242935577091,
+        "mae": 0.09385312742203285,
+        "rmse": 0.1010704849873448,
+        "r2": 0.9974463388480339
+    },
+    "best_params": {
+        "hidden_size": 113,
+        "num_layers": 4,
+        "dropout": 0.11000429838895798,
+        "learning_rate": 0.001737631973810494
+    },
+    "config": {
+        "input_size": 16,
+        "sequence_length": 10,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "epochs": 100,
+        "num_workers": 4,
+        "pin_memory": true,
+        "train_size": 0.7,
+        "val_size": 0.15,
+        "test_size": 0.15,
+        "world_size": 1,
+        "device": "cuda",
+        "log_dir": "/home/user/WS-Extrapolation/sparrow_search/logs",
+        "data_dir": "/home/user/WS-Extrapolation/sparrow_search/data",
+        "model_dir": "/home/user/WS-Extrapolation/sparrow_search/models",
+        "cuda_empty_cache": true,
+        "gradient_accumulation_steps": 1,
+        "amp_enabled": true,
+        "save_dir": "/home/user/WS-Extrapolation/sparrow_search/results",
+        "plot_dir": "./results/plots",
+        "timestamp": "20250302_184828",
+        "checkpoint_dir": "/home/user/WS-Extrapolation/sparrow_search/checkpoints",
+        "checkpoint_frequency": 5,
+        "resume_from_checkpoint": true
+    },
+    "timestamp": "20250302_184828"
+}
